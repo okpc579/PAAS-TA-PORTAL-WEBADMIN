@@ -1,0 +1,45 @@
+---
+applications:
+- name: paas-ta-portal-webadmin
+  memory: 1024M
+  instances: 1
+  path: build/libs/paas-ta-portal-webadmin.war
+  buildpack: java_buildpack
+  env:
+    spring_application_name: PortalWebAdmin
+    
+    management_security_enabled: false
+    
+    spring_thymeleaf_cache: true # false : 서버 재시작 없이 새로고침.  개발서버 이상부터는 true로 설정.
+    spring_thymeleaf_check-template: true
+    spring_thymeleaf_check-template-location: true
+    spring_thymeleaf_content-type: text/html
+    spring_thymeleaf_enabled: true
+    spring_thymeleaf_encoding: UTF-8
+    spring_thymeleaf_mode: XHTML
+    spring_thymeleaf_prefix: /WEB-INF/views/
+    spring_thymeleaf_suffix: .html
+    
+    spring_http_multipart_enabled: true
+    spring_http_multipart_max-file-size: 1024MB
+    spring_http_multipart_max-request-size: 1024MB
+    spring_http_multipart_location: ${java.io.tmpdir}
+    
+    spring_servlet_multipart_enabled: true
+    spring_servlet_multipart_max-file-size: 1024MB
+    spring_servlet_multipart_max-request-size: 1024MB
+    spring_servlet_multipart_location: ${java.io.tmpdir}
+    
+    datasource_cfg_url: jdbc:mysql://10.0.3.132:3306/webconfig
+    datasource_cfg_username: root
+    datasource_cfg_password: Paasta@2019
+    datasource_cfg_ddl-auto: none
+    datasource_cfg_naming_strategy: org.hibernate.dialect.MySQL5Dialect
+    
+    paasta_portal_api_authorization_base64: Basic YWRtaW46b3BlbnBhYXN0YQ==
+    paasta_portal_api_zuulUrl_cfapi: http://paas-ta-portal-gateway.galaxycloud.kr/portalapi
+    paasta_portal_api_zuulUrl_commonapi: http://paas-ta-portal-gateway.galaxycloud.kr/commonapi
+    paasta_portal_api_zuulUrl_storageapi: http://paas-ta-portal-gateway.galaxycloud.kr/storageapi
+    paasta_portal_storageapi_type: swift
+    
+    logging_level_org.openpaas.paasta.portal.web.admin.exception.GlobalControllerExceptionHandler: DEBUG
